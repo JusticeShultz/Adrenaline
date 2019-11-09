@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
         //Final results will be multiplied by 8
 
-        currentDamage = Mathf.Pow(2, ((maxHealth - currentHealth) * 0.01f));
+        currentDamage = Mathf.Pow(2, ((maxHealth - currentHealth) * 0.01f)) * 8;
 
         if (currentHealth <= 0 && !Died) Die();
 
@@ -73,14 +73,15 @@ public class PlayerController : MonoBehaviour
 
         HealthSlider.fillAmount = Mathf.Lerp(HealthSlider.fillAmount, currentHealth / maxHealth, 0.04f);
 
-        //rb.velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
 
-        //Vector3 forwardVector = transform.forward;
-        //Vector3 movementVector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        //movementVector = Vector3.Normalize(movementVector);
-        //rb.AddForce(movementVector * Time.deltaTime * MovementSpeed);
+        Vector3 forwardVector = transform.forward;
+        Vector3 movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        //transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, MinY, MaxY), transform.position.z);
+        movementVector = Vector3.Normalize(movementVector);
+        rb.AddForce(movementVector * Time.deltaTime * movementSpeed);
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, minDepth, maxDepth));
 
         if (standStillTime >= standingStillRegenTime)
         {
