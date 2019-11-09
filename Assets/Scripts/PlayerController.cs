@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public float attackCooldown = 0.3f;
     public float currentDamage = 0f;
     public CollisionDetector damageHitbox;
-
+    
     [Header("Event hookups")]
     public UnityEvent onStandStillRegen = new UnityEvent();
     public UnityEvent onNoDamageRegen = new UnityEvent();
@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public UnityEvent onAttack = new UnityEvent();
     public UnityEvent onHitEnemies = new UnityEvent();
     public UnityEvent onDeath = new UnityEvent();
+    public UnityEvent onRaging = new UnityEvent();
+    public UnityEvent onNonRaging = new UnityEvent();
 
     private Vector3 lastPos;
     private float standStillTime = 0f;
@@ -56,8 +58,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (currentHealth <= maxHealth / 2)
+        {
+            onRaging.Invoke();
             attackCooldown = 0;
-        else attackCooldown = 0.1f;
+        }
+        else
+        {
+            onNonRaging.Invoke();
+            attackCooldown = 0.35f;
+        }
 
         //Get the difference between the max and current health and use that as a power to the value 2.
         //Case examples:
@@ -74,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
         damageHitbox.transform.localScale = new Vector3(1.322709f, 0.5384f, 2 - (currentHealth/maxHealth));
 
-        if (currentHealth <= 0 && !Died) Die();
+        if (HealthSlider.fillAmount <= 0 && !Died) Die();
 
         sinceDamageTime += Time.deltaTime;
 

@@ -17,7 +17,6 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Damage")]
     public CollisionDetector hitbox;
-    public float damageAmount = 15f;
     public float attackSpeed = 0.4f;
 
     [Header("Fancy floaty numbers")]
@@ -37,7 +36,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (died) return;
 
-        attackSpeedAhhhhGamejamNaming += Time.deltaTime;
+        if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < 3)
+            attackSpeedAhhhhGamejamNaming += Time.deltaTime;
 
         //Do movement here
         agent.SetDestination(PlayerController.instance.transform.position);
@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour
         if(hitbox.objectList.Count > 0 && attackSpeedAhhhhGamejamNaming >= attackSpeed)
         {
             attackSpeedAhhhhGamejamNaming = 0f;
-            DealDamage(damageAmount);
+            DealDamage(Random.Range(mindamage, maxdamage));
         }
     }
 
