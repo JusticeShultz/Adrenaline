@@ -55,6 +55,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (currentHealth <= maxHealth / 2)
+            attackCooldown = 0;
+        else attackCooldown = 0.1f;
+
         //Get the difference between the max and current health and use that as a power to the value 2.
         //Case examples:
         //2 ^ ((1000 - 1000) * 0.01f) = 1
@@ -64,9 +68,11 @@ public class PlayerController : MonoBehaviour
         //2 ^ ((1000 - 150) * 0.01f) = 362
         //2 ^ ((1000 - 50) * 0.01f) = 724
 
-        //Final results will be multiplied by 8
+            //Final results will be multiplied by 8
 
         currentDamage = Mathf.Pow(2, ((maxHealth - currentHealth) * 0.01f)) * 8;
+
+        damageHitbox.transform.localScale = new Vector3(1.322709f, 0.5384f, 2 - (currentHealth/maxHealth));
 
         if (currentHealth <= 0 && !Died) Die();
 
@@ -131,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
         movementVector = Vector3.Normalize(movementVector);
         
-        rb.AddForce(movementVector * Time.deltaTime * movementSpeed * (InLane == true ? 1 : 2));
+        rb.AddForce(movementVector * Time.deltaTime * movementSpeed * (InLane == true ? 1 : 2) * (2 - (currentHealth / maxHealth)));
         //if(CurrentLane == 1)
         //    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneOneMinDepth, laneOneMaxDepth));
         //else if (CurrentLane == 2)
@@ -175,10 +181,13 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < 50; i++)
         {
             yield return new WaitForSeconds(0.01f);
-            textObject.transform.position += new Vector3(0, 0.01f, 0);
+
+            if (textObject)
+                textObject.transform.position += new Vector3(0, 0.01f, 0);
         }
 
-        Destroy(textObject.gameObject);
+        if(textObject)
+            Destroy(textObject.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
