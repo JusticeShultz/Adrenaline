@@ -107,6 +107,11 @@ public class PlayerController : MonoBehaviour
         Vector3 forwardVector = transform.forward;
         Vector3 movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
+        if(movementVector.magnitude >= 0.15f)
+        {
+            transform.LookAt(transform.position - movementVector, transform.up);
+        }
+
         movementVector = Vector3.Normalize(movementVector);
         rb.AddForce(movementVector * Time.deltaTime * movementSpeed);
 
