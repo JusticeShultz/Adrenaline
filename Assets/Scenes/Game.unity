@@ -1358,7 +1358,7 @@ GameObject:
   - component: {fileID: 1894110759}
   - component: {fileID: 1894110763}
   m_Layer: 0
-  m_Name: Player (1)
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1456,8 +1456,10 @@ MonoBehaviour:
   movementSpeed: 0
   maxDepth: 0
   mMinDepth: 0
-  enemyDamageNumberPrefab: {fileID: 0}
-  enemyCriticalDamagePrefab: {fileID: 0}
+  enemyDamageNumberPrefab: {fileID: 7907039707271913778, guid: 722ca02a8f2344c44af6defbd85e9652,
+    type: 3}
+  enemyCriticalDamagePrefab: {fileID: 378233691649783815, guid: 786cf409963d633498cb8f669bbef3a4,
+    type: 3}
   onDoNormalDamage:
     m_PersistentCalls:
       m_Calls: []
