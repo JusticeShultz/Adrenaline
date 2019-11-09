@@ -59,6 +59,7 @@ public class EnemyAI : MonoBehaviour
 
             TextMesh text = Instantiate(enemyCriticalDamagePrefab, transform.position + transform.forward, Quaternion.identity).GetComponent<TextMesh>();
             text.text = Mathf.Ceil(amount * 3.5f).ToString();
+            StartCoroutine(TextAnimation(text));
         }
         else
         {
@@ -66,7 +67,8 @@ public class EnemyAI : MonoBehaviour
             PlayerController.instance.InflictDamage(amount);
 
             TextMesh text = Instantiate(enemyDamageNumberPrefab, transform.position + transform.forward, Quaternion.identity).GetComponent<TextMesh>();
-            text.text = Mathf.Ceil(amount * 3.5f).ToString();
+            text.text = Mathf.Ceil(amount).ToString();
+            StartCoroutine(TextAnimation(text));
         }
     }
 

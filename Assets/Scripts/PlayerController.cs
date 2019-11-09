@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float standingStillRegenTime = 2f;
     public float noDamageRegenTime = 2.5f;
     public Image HealthSlider;
+    public GameObject playerDamageNumberPrefab;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -25,11 +26,14 @@ public class PlayerController : MonoBehaviour
     [Header("Damage")]
     public float attackCooldown = 0.3f;
     public float currentDamage = 0f;
+    public CollisionDetector damageHitbox;
 
     [Header("Event hookups")]
     public UnityEvent onStandStillRegen = new UnityEvent();
     public UnityEvent onNoDamageRegen = new UnityEvent();
     public UnityEvent onTakeDamage = new UnityEvent();
+    public UnityEvent onAttack = new UnityEvent();
+    public UnityEvent onHitEnemies = new UnityEvent();
     public UnityEvent onDeath = new UnityEvent();
 
     private Vector3 lastPos;
@@ -66,9 +70,34 @@ public class PlayerController : MonoBehaviour
             standStillTime += Time.deltaTime; 
         else standStillTime = 0f;
 
+        sinceAttackTime += Time.deltaTime;
+
         if(Input.GetMouseButtonDown(0))
         {
+            if (sinceAttackTime >= attackCooldown)
+            {
+                sinceAttackTime = 0f;
+                onAttack.Invoke();
 
+                if (damageHitbox.objectList.Count > 0)
+                {
+                    for (int i = 0; i < damageHitbox.objectList.Count; i++)
+                    {
+                        EnemyAI ai = damageHitbox.objectList[i].GetComponent<EnemyAI>();
+
+                        if (ai)
+                        {
+                            onHitEnemies.Invoke();
+                            ai.InflictDamage(currentDamage);
+                            
+                            TextMesh text = Instantiate(playerDamageNumberPrefab, transform.position - (transform.position - ai.transform.position), Quaternion.Euler(44.52f, 0, 0)).GetComponent<TextMesh>();
+
+                            text.text = Mathf.Ceil(currentDamage).ToString();
+                            StartCoroutine(TextAnimation(text));
+                        }
+                    }
+                }
+            }
         }
 
         HealthSlider.fillAmount = Mathf.Lerp(HealthSlider.fillAmount, currentHealth / maxHealth, 0.04f);
@@ -112,5 +141,16 @@ public class PlayerController : MonoBehaviour
     {
         Died = true;
         onDeath.Invoke();
+    }
+
+    IEnumerator TextAnimation(TextMesh textObject)
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            textObject.transform.position += new Vector3(0, 0.01f, 0);
+        }
+
+        Destroy(textObject.gameObject);
     }
 }
