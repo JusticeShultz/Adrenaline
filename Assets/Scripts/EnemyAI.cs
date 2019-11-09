@@ -14,14 +14,16 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Movement")]
     public NavMeshAgent agent;
+    public Animator animator;
 
     [Header("Damage")]
     public CollisionDetector hitbox;
     public float attackSpeed = 0.4f;
 
-    [Header("Fancy floaty numbers")]
+    [Header("Fancy Stuff")]
     public GameObject enemyDamageNumberPrefab;
     public GameObject enemyCriticalDamagePrefab;
+    public GameObject deathRagdoll;
 
     public UnityEvent onDoNormalDamage = new UnityEvent();
     public UnityEvent onDoCriticalDamage = new UnityEvent();
@@ -42,9 +44,12 @@ public class EnemyAI : MonoBehaviour
         //Do movement here
         agent.SetDestination(PlayerController.instance.transform.position);
 
-        if(hitbox.objectList.Count > 0 && attackSpeedAhhhhGamejamNaming >= attackSpeed)
+        animator.SetBool("Moving", agent.velocity.magnitude > 0.1f);
+
+        if (hitbox.objectList.Count > 0 && attackSpeedAhhhhGamejamNaming >= attackSpeed)
         {
             attackSpeedAhhhhGamejamNaming = 0f;
+            animator.SetTrigger("Hit1");
             DealDamage(Random.Range(mindamage, maxdamage));
         }
     }
@@ -98,7 +103,9 @@ public class EnemyAI : MonoBehaviour
                 PlayerController.instance.damageHitbox.objectList.Remove(PlayerController.instance.damageHitbox.objectList[i]);
             }
         }
-        
+
+        Instantiate(deathRagdoll, transform.position, transform.rotation);
+
         Destroy(gameObject);
         //Destroy(gameObject, 1f);
     }

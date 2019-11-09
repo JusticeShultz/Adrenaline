@@ -7,6 +7,7 @@ public class Framecap : MonoBehaviour
 {
     void Update()
     {
-        Application.targetFrameRate = 75;
+        Application.targetFrameRate = 60;
+        QualitySettings.maxQueuedFrames = 60;
     }
 }

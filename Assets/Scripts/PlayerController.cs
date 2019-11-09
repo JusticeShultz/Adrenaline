@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     public UnityEvent onRaging = new UnityEvent();
     public UnityEvent onNonRaging = new UnityEvent();
 
+    [Header("Animation")]
+    public Animator animator;
+
     private Vector3 lastPos;
     private float standStillTime = 0f;
     private float sinceDamageTime = 0f;
@@ -100,6 +103,9 @@ public class PlayerController : MonoBehaviour
                 sinceAttackTime = 0f;
                 onAttack.Invoke();
 
+                //animator.SetTrigger("Hit" + Random.Range(1, 6));
+                animator.SetTrigger("Hit1");
+
                 if (damageHitbox.objectList.Count > 0)
                 {
                     for (int i = 0; i < damageHitbox.objectList.Count; i++)
@@ -141,8 +147,9 @@ public class PlayerController : MonoBehaviour
 
         if(movementVector.magnitude >= 0.15f)
         {
+            animator.SetBool("Moving", true);
             transform.LookAt(transform.position - movementVector, transform.up);
-        }
+        } else animator.SetBool("Moving", false);
 
         movementVector = Vector3.Normalize(movementVector);
         
