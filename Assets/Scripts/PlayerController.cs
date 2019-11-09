@@ -19,8 +19,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     public float movementSpeed = 100f;
-    public float maxDepth = 10f;
-    public float minDepth = -5f;
+    public float laneOneMaxDepth = 10f;
+    public float laneOneMinDepth = -5f;
+    public float laneTwoMaxDepth = 10f;
+    public float laneTwoMinDepth = -5f;
+    public float laneThreeMaxDepth = 10f;
+    public float laneThreeMinDepth = -5f;
+    public float CurrentLane = 1;
     public Rigidbody rb;
 
     [Header("Damage")]
@@ -115,7 +120,12 @@ public class PlayerController : MonoBehaviour
         movementVector = Vector3.Normalize(movementVector);
         rb.AddForce(movementVector * Time.deltaTime * movementSpeed);
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, minDepth, maxDepth));
+        if(CurrentLane == 1)
+            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneOneMinDepth, laneOneMaxDepth));
+        else if (CurrentLane == 2)
+            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneTwoMinDepth, laneTwoMaxDepth));
+        else if (CurrentLane == 3)
+            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneThreeMinDepth, laneThreeMaxDepth));
 
         if (standStillTime >= standingStillRegenTime)
         {
