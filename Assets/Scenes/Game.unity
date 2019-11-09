@@ -270,8 +270,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224942859}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 6}
+  m_LocalPosition: {x: 0, y: -0, z: 4.68}
+  m_LocalScale: {x: 100, y: 1, z: 15.36}
   m_Children: []
   m_Father: {fileID: 1896218223}
   m_RootOrder: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
   playerDamageNumberPrefab: {fileID: 5728164650275163585, guid: e47afb0dc5e4458448c73b25b48a8b7d,
     type: 3}
   movementSpeed: 25000
-  maxDepth: 2
+  maxDepth: 11.3
   minDepth: -2.4
   rb: {fileID: 418390186}
   attackCooldown: 0.3
@@ -848,7 +848,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594667427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 54.3}
+  m_LocalPosition: {x: 0, y: 0.51, z: 63.7}
   m_LocalScale: {x: 100, y: 1, z: 103.133675}
   m_Children: []
   m_Father: {fileID: 1896218223}
