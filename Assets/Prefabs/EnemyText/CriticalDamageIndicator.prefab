@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 378233691649783813}
   - component: {fileID: 378233691649783812}
   - component: {fileID: 378233691649783811}
+  - component: {fileID: -1047712187462921684}
   m_Layer: 0
   m_Name: CriticalDamageIndicator
   m_TagString: Untagged
@@ -112,3 +113,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1047712187462921684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378233691649783815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9524169620ae1d54493fbe92bda0cb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 1.25

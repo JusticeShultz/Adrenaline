@@ -19,13 +19,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     public float movementSpeed = 100f;
-    public float laneOneMaxDepth = 10f;
-    public float laneOneMinDepth = -5f;
-    public float laneTwoMaxDepth = 10f;
-    public float laneTwoMinDepth = -5f;
-    public float laneThreeMaxDepth = 10f;
-    public float laneThreeMinDepth = -5f;
-    public float CurrentLane = 1;
+    //public float laneOneMaxDepth = 10f;
+    //public float laneOneMinDepth = -5f;
+    //public float laneTwoMaxDepth = 10f;
+    //public float laneTwoMinDepth = -5f;
+    //public float laneThreeMaxDepth = 10f;
+    //public float laneThreeMinDepth = -5f;
+    //public float CurrentLane = 1;
+    bool InLane = true;
     public Rigidbody rb;
 
     [Header("Damage")]
@@ -88,17 +89,28 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = 0; i < damageHitbox.objectList.Count; i++)
                     {
-                        EnemyAI ai = damageHitbox.objectList[i].GetComponent<EnemyAI>();
-
-                        if (ai)
+                        if (!damageHitbox.objectList[i])
                         {
-                            onHitEnemies.Invoke();
-                            ai.InflictDamage(currentDamage);
-                            
-                            TextMesh text = Instantiate(playerDamageNumberPrefab, transform.position - (transform.position - ai.transform.position), Quaternion.Euler(44.52f, 0, 0)).GetComponent<TextMesh>();
+                            damageHitbox.objectList.Remove(damageHitbox.objectList[i]);
+                        }
+                    }
 
-                            text.text = Mathf.Ceil(currentDamage).ToString();
-                            StartCoroutine(TextAnimation(text));
+                    for (int i = 0; i < damageHitbox.objectList.Count; i++)
+                    {
+                        if (damageHitbox.objectList[i])
+                        {
+                            EnemyAI ai = damageHitbox.objectList[i].GetComponent<EnemyAI>();
+
+                            if (ai)
+                            {
+                                onHitEnemies.Invoke();
+                                ai.InflictDamage(currentDamage);
+
+                                TextMesh text = Instantiate(playerDamageNumberPrefab, transform.position - (transform.position - ai.transform.position), Quaternion.Euler(44.52f, 0, 0)).GetComponent<TextMesh>();
+
+                                text.text = Mathf.Ceil(currentDamage).ToString();
+                                StartCoroutine(TextAnimation(text));
+                            }
                         }
                     }
                 }
@@ -118,14 +130,14 @@ public class PlayerController : MonoBehaviour
         }
 
         movementVector = Vector3.Normalize(movementVector);
-        rb.AddForce(movementVector * Time.deltaTime * movementSpeed);
-
-        if(CurrentLane == 1)
-            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneOneMinDepth, laneOneMaxDepth));
-        else if (CurrentLane == 2)
-            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneTwoMinDepth, laneTwoMaxDepth));
-        else if (CurrentLane == 3)
-            transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneThreeMinDepth, laneThreeMaxDepth));
+        
+        rb.AddForce(movementVector * Time.deltaTime * movementSpeed * (InLane == true ? 1 : 2));
+        //if(CurrentLane == 1)
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneOneMinDepth, laneOneMaxDepth));
+        //else if (CurrentLane == 2)
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneTwoMinDepth, laneTwoMaxDepth));
+        //else if (CurrentLane == 3)
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, laneThreeMinDepth, laneThreeMaxDepth));
 
         if (standStillTime >= standingStillRegenTime)
         {
@@ -167,5 +179,17 @@ public class PlayerController : MonoBehaviour
         }
 
         Destroy(textObject.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "LaneSwitch")
+            InLane = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "LaneSwitch")
+            InLane = true;
     }
 }
