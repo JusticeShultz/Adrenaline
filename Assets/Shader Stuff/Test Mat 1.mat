@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Test Mat
+  m_Name: Test Mat 1
   m_Shader: {fileID: -6465566751694194690, guid: 9aea844731322594780b0be5b7692a8f,
     type: 3}
   m_ShaderKeywords: 
@@ -20,36 +20,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_1086E1EF:
-        m_Texture: {fileID: 2800000, guid: 80709da40591af4408ed675c4ddf5779, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_1A7E68EA:
-        m_Texture: {fileID: 2800000, guid: e49a5a01cce1db74c8de57e39876ea7b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - Texture2D_2113F40A:
-        m_Texture: {fileID: 2800000, guid: 8147ca07e1cac8a47acf952b93a034ed, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_24A7B5F9:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - Texture2D_3CB56951:
-        m_Texture: {fileID: 2800000, guid: 24fca033ed067314eb91f009cde974e0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - Texture2D_5E9C7318:
-        m_Texture: {fileID: 2800000, guid: 9afc2e7ab419ada46ad5a1b38786bf10, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_71B6A4F2:
-        m_Texture: {fileID: 2800000, guid: d4c6c783ea7eb9b4fa2f01d3522e51c2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_BBDA4FC1:
-        m_Texture: {fileID: 2800000, guid: 243ae2cc875a22e4083ddc9160316afe, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -93,9 +77,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_40E12FC7: 0
-    - Vector1_D9C73E9A: -4.08
-    - Vector1_DD7E3A88: 1.36
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -113,7 +94,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - Vector3_C561389: {r: 0.09, g: 1.91, b: 1.39, a: 0}
-    - Vector3_E069C69F: {r: 0, g: 103.9, b: 15.89, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
