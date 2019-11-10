@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Telephone Pole
-  m_Shader: {fileID: -6465566751694194690, guid: 9aea844731322594780b0be5b7692a8f,
+  m_Shader: {fileID: -6465566751694194690, guid: 1eba370f2c4aee14381b46febf1ddc6b,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -100,7 +100,7 @@ Material:
     - Vector1_40E12FC7: 0
     - Vector1_4B04412C: 0.41
     - Vector1_704153E7: 0
-    - Vector1_CEAD2B0B: 0
+    - Vector1_CEAD2B0B: -0.02
     - Vector1_D9C73E9A: -4.08
     - Vector1_DD7E3A88: 1.36
     - _BumpScale: 1
