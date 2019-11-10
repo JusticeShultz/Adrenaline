@@ -1607,6 +1607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7901767384014962670}
   - component: {fileID: 225941202781737620}
+  - component: {fileID: 1006730854}
   m_Layer: 12
   m_Name: T-Pose Rigged Enemy
   m_TagString: Untagged
@@ -1639,16 +1640,30 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625901482320088573}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: de0d16748575986499f9e70637d925f5, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 45d4a3fdc1debbe4fb6009d8bea4805d, type: 3}
   m_Controller: {fileID: 9100000, guid: e248c5fb4330431468a56dad78cf05b3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1006730854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625901482320088573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9524169620ae1d54493fbe92bda0cb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0.1
+  Target: {fileID: 225941202781737620}
 --- !u!1 &6661903827463735445
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,12 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadLevelByName(string sceneName)
     {
+        if(sceneName == "Exit")
+        {
+            Application.Quit();
+            return;
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 

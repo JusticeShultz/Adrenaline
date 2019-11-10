@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour
     public CollisionDetector damageHitbox;
     public GameObject slowDownParticle;
     public GameObject hitParticle;
+    public GameObject deadRagdoll;
+    public GameObject hideMe;
+    private GameObject ragdoll;
+    public GameObject meme;
+    public GameObject ui;
     
     [Header("Event hookups")]
     public UnityEvent onStandStillRegen = new UnityEvent();
@@ -54,12 +59,17 @@ public class PlayerController : MonoBehaviour
     public Text scoreDisplay;
     public Text timeDisplay;
 
+    [Header("Sound System")]
+    public AudioSource emitter;
+    public List<AudioClip> clips = new List<AudioClip>();
+
     private Vector3 lastPos;
     private float standStillTime = 0f;
     private float sinceDamageTime = 0f;
     private float sinceStopTime = 0f;
     private float sinceAttackTime = 0f;
-    private bool Died = false;
+    private bool triggerReleased = true;
+    [HideInInspector] public bool Died = false;
 
     void Start()
     {
@@ -68,6 +78,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Died) return;
+
         sinceStopTime += Time.deltaTime;
 
         if (currentHealth <= maxHealth / 2)
@@ -109,13 +121,15 @@ public class PlayerController : MonoBehaviour
 
         sinceAttackTime += Time.deltaTime;
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") > 0 && triggerReleased))
         {
+            triggerReleased = false;
+
             if (sinceAttackTime >= attackCooldown)
             {
                 sinceAttackTime = 0f;
                 onAttack.Invoke();
-                
+
                 //animator.SetTrigger("Hit" + Random.Range(1, 6));
                 animator.SetTrigger("Hit1");
 
@@ -131,6 +145,8 @@ public class PlayerController : MonoBehaviour
 
                     for (int i = 0; i < damageHitbox.objectList.Count; i++)
                     {
+                        emitter.PlayOneShot(clips[Random.Range(0, clips.Count)]);
+
                         if (damageHitbox.objectList[i])
                         {
                             EnemyAI ai = damageHitbox.objectList[i].GetComponent<EnemyAI>();
@@ -140,12 +156,12 @@ public class PlayerController : MonoBehaviour
                                 onHitEnemies.Invoke();
                                 ai.InflictDamage(currentDamage);
 
-                                if(currentDamage > 5000)
+                                if (currentDamage > 5000)
                                     CameraController.instance.ScreenShake(0.2f, 3f);
 
                                 TextMesh text = Instantiate(playerDamageNumberPrefab, transform.position - (transform.position - ai.transform.position), Quaternion.Euler(44.52f, 0, 0)).GetComponent<TextMesh>();
 
-                                if(currentDamage > 5000)
+                                if (currentDamage > 5000)
                                     text.text = Mathf.Ceil(currentDamage * 5000).ToString();
                                 else text.text = Mathf.Ceil(currentDamage).ToString();
 
@@ -162,6 +178,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        else if(Input.GetAxis("Fire1") == 0) triggerReleased = true;
 
         HealthSlider.fillAmount = Mathf.Lerp(HealthSlider.fillAmount, currentHealth / maxHealth, 0.04f);
 
@@ -203,6 +220,8 @@ public class PlayerController : MonoBehaviour
 
     public void InflictDamage(float damageAmount)
     {
+        if (Died) return;
+
         currentHealth -= damageAmount;
         sinceDamageTime = 0f;
 
@@ -221,12 +240,16 @@ public class PlayerController : MonoBehaviour
         Died = true;
 
         scoreDisplay.transform.parent = null;
-        timeDisplay.transform.parent = null;
+        timeDisplay.transform.parent = null;    
 
         DontDestroyOnLoad(scoreDisplay);
         DontDestroyOnLoad(timeDisplay);
 
-        onDeath.Invoke();
+        hideMe.SetActive(false);
+
+        ragdoll = Instantiate(deadRagdoll, transform.position, transform.rotation);
+        scoreDisplay.GetComponent<ScoreOutput>().score = Score;
+        StartCoroutine(DeathAwaiter());
     }
 
     IEnumerator TextAnimation(TextMesh textObject)
@@ -268,6 +291,18 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
 
         CameraController.instance.ScreenShake(0.1f, 0);
+    }
+
+    IEnumerator DeathAwaiter()
+    {
+        ui.SetActive(false);
+        meme.SetActive(true);
+        rb.isKinematic = true;
+        transform.position = ragdoll.transform.position;
+
+        Time.timeScale = 0.4f;
+        yield return new WaitForSeconds(3.5f);
+        onDeath.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)

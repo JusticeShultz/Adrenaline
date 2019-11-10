@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (died) return;
+        if (died || PlayerController.instance.Died) return;
 
         if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < 3)
             attackSpeedAhhhhGamejamNaming += Time.deltaTime;
@@ -56,6 +56,8 @@ public class EnemyAI : MonoBehaviour
 
     public void InflictDamage(float amount)
     {
+        if (died || PlayerController.instance.Died) return;
+
         health -= amount;
         onTakeDamage.Invoke();
 
@@ -67,6 +69,8 @@ public class EnemyAI : MonoBehaviour
 
     public void DealDamage(float amount)
     {
+        if (died || PlayerController.instance.Died) return;
+
         int roll = Random.Range(0, 100);
 
         if (roll < critChance)
@@ -89,6 +93,8 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(TextAnimation(text));
             textMeshes.Add(text);
         }
+
+        PlayerController.instance.emitter.PlayOneShot(PlayerController.instance.clips[Random.Range(0, PlayerController.instance.clips.Count)]);
     }
 
     public void Die()
