@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastPos;
     private float standStillTime = 0f;
     private float sinceDamageTime = 0f;
+    private float sinceStopTime = 0f;
     private float sinceAttackTime = 0f;
     private bool Died = false;
 
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        sinceStopTime += Time.deltaTime;
+
         if (currentHealth <= maxHealth / 2)
         {
             onRaging.Invoke();
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour
             {
                 sinceAttackTime = 0f;
                 onAttack.Invoke();
-
+                
                 //animator.SetTrigger("Hit" + Random.Range(1, 6));
                 animator.SetTrigger("Hit1");
 
@@ -127,9 +130,17 @@ public class PlayerController : MonoBehaviour
                                 onHitEnemies.Invoke();
                                 ai.InflictDamage(currentDamage);
 
+                                if(currentDamage > 5000)
+                                    CameraController.instance.ScreenShake(0.2f, 3f);
+
                                 TextMesh text = Instantiate(playerDamageNumberPrefab, transform.position - (transform.position - ai.transform.position), Quaternion.Euler(44.52f, 0, 0)).GetComponent<TextMesh>();
 
-                                text.text = Mathf.Ceil(currentDamage).ToString();
+                                if(currentDamage > 5000)
+                                    text.text = Mathf.Ceil(currentDamage * 5000).ToString();
+                                else text.text = Mathf.Ceil(currentDamage).ToString();
+
+                                StartCoroutine(FrameGrab(currentDamage));
+
                                 StartCoroutine(TextAnimation(text));
                             }
                         }
@@ -181,6 +192,9 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damageAmount;
         sinceDamageTime = 0f;
 
+        if(damageAmount >= 20)
+            CameraController.instance.ScreenShake(0.3f, 2f);
+            
         onTakeDamage.Invoke();
         //Do hit effect here
         //Update healthbar here
@@ -204,6 +218,31 @@ public class PlayerController : MonoBehaviour
 
         if(textObject)
             Destroy(textObject.gameObject);
+    }
+
+    IEnumerator FrameGrab(float damage)
+    {
+        if (sinceStopTime > 0.15f)
+            sinceStopTime = 0f;
+        else yield break;
+
+        float wait = 0.001f;
+
+        if (damage > 500) wait = 0.002f;
+        if (damage > 1000) wait = 0.007f;
+        if (damage > 2000) wait = 0.012f;
+        if (damage > 6000) wait = 0.02f;
+        if (damage > 10000) wait = 0.03f;
+        if (damage > 16000) wait = 0.04f;
+        if (damage > 20000) wait = 0.05f;
+
+        CameraController.instance.ScreenShake(0.1f, 5);
+
+        Time.timeScale = 0.05f;
+        yield return new WaitForSeconds(wait);
+        Time.timeScale = 1f;
+
+        CameraController.instance.ScreenShake(0.1f, 0);
     }
 
     private void OnTriggerEnter(Collider other)
