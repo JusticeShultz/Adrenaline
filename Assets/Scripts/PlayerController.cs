@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     public Animator animator;
 
+    [Header("ScoreSystem")]
+    public int Score;
+    public Text scoreDisplay;
+    public Text timeDisplay;
+
     private Vector3 lastPos;
     private float standStillTime = 0f;
     private float sinceDamageTime = 0f;
@@ -99,6 +104,9 @@ public class PlayerController : MonoBehaviour
             standStillTime += Time.deltaTime; 
         else standStillTime = 0f;
 
+        scoreDisplay.text = "Score: " + Score;
+        timeDisplay.text = "Time Survived: " + Time.timeSinceLevelLoad;
+
         sinceAttackTime += Time.deltaTime;
 
         if(Input.GetMouseButtonDown(0))
@@ -146,6 +154,8 @@ public class PlayerController : MonoBehaviour
                                 Instantiate(hitParticle, transform.position - (transform.position - ai.transform.position), Quaternion.identity);
 
                                 StartCoroutine(TextAnimation(text));
+
+                                Score += Mathf.CeilToInt(currentDamage);
                             }
                         }
                     }
@@ -200,6 +210,8 @@ public class PlayerController : MonoBehaviour
             CameraController.instance.ScreenShake(0.3f, 2f);
             
         onTakeDamage.Invoke();
+
+        Score += Mathf.CeilToInt(damageAmount);
         //Do hit effect here
         //Update healthbar here
     }
@@ -207,6 +219,13 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Died = true;
+
+        scoreDisplay.transform.parent = null;
+        timeDisplay.transform.parent = null;
+
+        DontDestroyOnLoad(scoreDisplay);
+        DontDestroyOnLoad(timeDisplay);
+
         onDeath.Invoke();
     }
 
