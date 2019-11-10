@@ -5,9 +5,12 @@ using UnityEngine;
 public class TimedDeath : MonoBehaviour
 {
     public float time = 1.25f;
+    public Object Target;
 
     void Start()
     {
-        Destroy(gameObject, time);
+        if(!Target)
+            Destroy(gameObject, time);
+        else Destroy(Target, time);
     }
 }
