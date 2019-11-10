@@ -738,7 +738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -835, y: -478}
+  m_AnchoredPosition: {x: -835, y: -520}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &183270985
@@ -28915,7 +28915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 142.50006, y: 27.900085}
+  m_AnchoredPosition: {x: 169.90002, y: 21.700012}
   m_SizeDelta: {x: 182.1, y: 28.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1457575301
@@ -28949,9 +28949,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Volume slider (temporary location)
-
-    Need pause screen!'
+  m_Text: Volume slider
 --- !u!222 &1457575302
 CanvasRenderer:
   m_ObjectHideFlags: 0
