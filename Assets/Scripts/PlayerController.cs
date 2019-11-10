@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public float attackCooldown = 0.3f;
     public float currentDamage = 0f;
     public CollisionDetector damageHitbox;
+    public GameObject slowDownParticle;
+    public GameObject hitParticle;
     
     [Header("Event hookups")]
     public UnityEvent onStandStillRegen = new UnityEvent();
@@ -141,6 +143,8 @@ public class PlayerController : MonoBehaviour
 
                                 StartCoroutine(FrameGrab(currentDamage));
 
+                                Instantiate(hitParticle, transform.position - (transform.position - ai.transform.position), Quaternion.identity);
+
                                 StartCoroutine(TextAnimation(text));
                             }
                         }
@@ -222,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator FrameGrab(float damage)
     {
-        if (sinceStopTime > 0.15f)
+        if (sinceStopTime > 0.8f)
             sinceStopTime = 0f;
         else yield break;
 
@@ -236,6 +240,8 @@ public class PlayerController : MonoBehaviour
         if (damage > 16000) wait = 0.04f;
         if (damage > 20000) wait = 0.05f;
 
+
+        Instantiate(slowDownParticle, transform.position + Vector3.up, Quaternion.identity);
         CameraController.instance.ScreenShake(0.1f, 5);
 
         Time.timeScale = 0.05f;

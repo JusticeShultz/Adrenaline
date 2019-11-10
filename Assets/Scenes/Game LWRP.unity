@@ -5959,6 +5959,10 @@ MonoBehaviour:
   attackCooldown: 0.1
   currentDamage: 0
   damageHitbox: {fileID: 96941829}
+  slowDownParticle: {fileID: 6448150507149269703, guid: 57d25632bf1cf0746aef23b256f9c58a,
+    type: 3}
+  hitParticle: {fileID: 8556504732889040657, guid: 09e416a6b20854944ae6b13483c308b7,
+    type: 3}
   onStandStillRegen:
     m_PersistentCalls:
       m_Calls: []
