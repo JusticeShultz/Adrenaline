@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: 3ab81bb4df3b394419d5a0a72eac06e0,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -12748,10 +12748,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574739339}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d3a83d9569b535146a9ef35954a90c65, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b0f559a0eaf03514d8000b58c30e0ffd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -45960,6 +45960,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Beam (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46015,11 +46020,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4ca837197ec9b3499ac155f8e7f232c, type: 3}
 --- !u!1001 &2030606408
@@ -46033,6 +46033,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Path Beam
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
@@ -46087,11 +46092,6 @@ PrefabInstance:
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -46292,6 +46292,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Beam (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46345,11 +46350,6 @@ PrefabInstance:
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -46510,6 +46510,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Beam (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46563,11 +46568,6 @@ PrefabInstance:
     - target: {fileID: 9147074272909168246, guid: d4ca837197ec9b3499ac155f8e7f232c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7197370808017272467, guid: d4ca837197ec9b3499ac155f8e7f232c,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
