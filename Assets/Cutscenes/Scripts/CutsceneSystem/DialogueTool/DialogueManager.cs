@@ -12,6 +12,7 @@ namespace RPGDialogueSystem
         [System.Serializable] public class OnChatEnded_Event : UnityEvent { }
 
         public OnTriggerEntered_Event OnTriggerEntered;
+        public OnTriggerEntered_Event OnTriggerExited;
         public OnTriggerEntered_Event OnChatStarted;
         public OnTriggerEntered_Event OnChatEnded;
 
@@ -20,7 +21,14 @@ namespace RPGDialogueSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            OnTriggerEntered.Invoke();
+            if(other.name == "Player")
+                OnTriggerEntered.Invoke();
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.name == "Player")
+                OnTriggerExited.Invoke();
         }
 
         public void StartChat()
